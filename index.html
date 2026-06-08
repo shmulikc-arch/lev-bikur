@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
@@ -82,13 +81,11 @@
     </style>
 </head>
 <body>
-
 <div class="container">
     <h1>פרויקט "לב ביקור"</h1>
     <div class="subtitle">דיווח פעילות חסד והוצאות כספיות - קהילות חב"ד</div>
     
     <form id="reportForm">
-        
         <div class="section-box" style="background: #fff;">
             <div class="form-group">
                 <label for="month">עבור איזה חודש הדיווח?</label>
@@ -193,7 +190,6 @@
     var actCount = 1;
     var finCount = 1;
 
-    // הפעלה ישירה של הוספת כרטיס פעילות (ללא תלות בטעינת חלון)
     document.getElementById('addActBtn').onclick = function() {
         actCount++;
         var container = document.getElementById('activitiesContainer');
@@ -207,7 +203,6 @@
         container.appendChild(card);
     };
 
-    // הפעלה ישירה של הוספת כרטיס כספים (ללא תלות בטעינת חלון)
     document.getElementById('addFinBtn').onclick = function() {
         finCount++;
         var container = document.getElementById('financesContainer');
@@ -266,7 +261,6 @@
             var fileInput = card.querySelector('.fin-file');
 
             var finItem = { desc: desc, amount: amount, docType: docType, fileName: '', fileData: '' };
-
             if (docType === 'חשבונית / קבלה' && fileInput && fileInput.files && fileInput.files.length > 0) {
                 var file = fileInput.files[0];
                 var reader = new FileReader();
@@ -288,22 +282,20 @@
         }
 
         Promise.all(financesPromises).then(function(finances) {
-            // אריזת הנתונים למשלוח
             var payload = {
                 meta: meta,
                 activities: activities,
                 finances: finances
             };
 
-            // הקישור הרשמי של ה-Web App שלך מגוגל (העתק אותו מניהול הפריסות)
+            // הקישור הרשמי של ה-Web App שלך מגוגל (השארתי את מה שהיה קודם)
             var googleWebAppUrl = "https://script.google.com/macros/s/AKfycbyhNchYG88grZ0DZknl6yjBbvtux5C4ScJphGMO9dVIvO8JgckCvizG3sxO0RgnTeG1-w/exec";
 
-            // שליחת הנתונים בצינור ה-POST המאובטח
             fetch(googleWebAppUrl, {
                 method: "POST",
                 mode: "no-cors",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "text/plain"
                 },
                 body: JSON.stringify(payload)
             })
