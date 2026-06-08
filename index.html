@@ -187,30 +187,34 @@
                 finances: finances
             };
 
-            // *** הדבק כאן את קישור ה-exec המעודכן שלך מגוגל ***
+            // ====================================================================
+            // ⚠️ ⚠️ ⚠️ חובה להדביק כאן בין הגרשיים את קישור ה-EXEC של הפריסה החדשה שלך ⚠️ ⚠️ ⚠️
+            // ====================================================================
             var googleWebAppUrl = "https://script.google.com/macros/s/AKfycbzBz6iv5qUZVQwVKjBUXZ08A4nNMCnhaE1fzbjJYwE3O4JrwZwajwDXyFp-gDeKvVP-pw/exec";
 
-            // שליחת הנתונים כטקסט נקי לחלוטין כדי לעקוף את הקריסה של גוגל
+            var searchParams = new URLSearchParams();
+            searchParams.append("jsonData", JSON.stringify(payload));
+
             fetch(googleWebAppUrl, {
                 method: "POST",
                 mode: "no-cors",
                 headers: {
-                    "Content-Type": "text/plain"
+                    "Content-Type": "application/x-www-form-urlencoded"
                 },
-                body: JSON.stringify(payload)
+                body: searchParams.toString()
             })
             .then(function() {
-                alert('הדיווח נשלח בהצלחה לגוגל שיטס!');
+                alert('הדיווח נקלט בהצלחה מרובה בגוגל שיטס!');
                 location.reload();
             })
             .catch(function(err) {
-                alert('שגיאה בשליחה: ' + err.message);
+                alert('שגיאה בשליחת המידע: ' + err.message);
                 document.getElementById('submitBtn').disabled = false;
                 document.getElementById('loadingMsg').style.display = 'none';
             });
 
         }).catch(function(err) {
-            alert('שגיאה בקבצים: ' + err.message);
+            alert('שגיאה בעיבוד הקבצים: ' + err.message);
             document.getElementById('submitBtn').disabled = false;
             document.getElementById('loadingMsg').style.display = 'none';
         });
