@@ -232,7 +232,6 @@
     document.getElementById('reportForm').onsubmit = function(event) {
         event.preventDefault();
         
-        // בדיקת חובת העלאת קבצים דינמית רק אם מולאו פרטי הוצאה
         var finCards = document.querySelectorAll('.card-fin');
         for (var k = 0; k < finCards.length; k++) {
             var descVal = finCards[k].querySelector('.fin-desc').value;
@@ -240,7 +239,6 @@
             var docTypeVal = finCards[k].querySelector('.fin-doc-type').value;
             var fileInput = finCards[k].querySelector('.fin-file');
             
-            // אם המפעילה התחילה למלא משהו בכרטיס הכספי הנוכחי
             if(descVal || amountVal || docTypeVal) {
                 if(!docTypeVal) {
                     alert("נא לבחור סוג אסמכתא עבור ההוצאה המדווחת.");
@@ -270,7 +268,6 @@
             var fCase = actCards[i].querySelector('.act-fam-case').value;
             var hType = actCards[i].querySelector('.act-help-type').value;
             
-            // מכניסים רק אם לפחות שדה אחד בכרטיס הפעילות מולא
             if(fName || fCase || hType) {
                 activities.push({ famName: fName, famCase: fCase, helpType: hType });
             }
@@ -283,7 +280,6 @@
             var docType = card.querySelector('.fin-doc-type').value;
             var fileInput = card.querySelector('.fin-file');
 
-            // אם הכרטיס ריק לגמרי, נדלג עליו
             if(!desc && !amount && !docType) {
                 return Promise.resolve(null);
             }
@@ -310,7 +306,6 @@
         }
 
         Promise.all(financesPromises).then(function(results) {
-            // סינון כרטיסים ריקים שסומנו כ-null
             var filteredFinances = results.filter(function(item) { return item !== null; });
 
             var payload = {
@@ -321,11 +316,12 @@
 
             var googleWebAppUrl = "https://script.google.com/macros/s/AKfycbzbh_4DRYBWwj7aQdcleiccsHIB_hChtzOfM4Ihf0QJm367YXPQ4zIyedYYl2fmBb5KcA/exec";
 
+            // שינוי הצינור לפקודה רציפה וחסינת CORS עבור גוגל
             fetch(googleWebAppUrl, {
                 method: "POST",
                 mode: "no-cors",
                 headers: {
-                    "Content-Type": "text/plain"
+                    "Content-Type": "text/plain;charset=utf-8"
                 },
                 body: JSON.stringify(payload)
             })
