@@ -236,7 +236,8 @@
         for (var k = 0; k < finCards.length; k++) {
             var descVal = finCards[k].querySelector('.fin-desc').value;
             var amountVal = finCards[k].querySelector('.fin-amount').value;
-            var docTypeVal = finCards[k].querySelector('.fin-doc-type').value;
+            var docTypeSelect = finCards[k].querySelector('.fin-doc-type');
+            var docTypeVal = docTypeSelect ? docTypeSelect.value : "";
             var fileInput = finCards[k].querySelector('.fin-file');
             
             if(descVal || amountVal || docTypeVal) {
@@ -246,7 +247,7 @@
                 }
                 if (docTypeVal === 'חשבונית / קבלה' && (!fileInput || !fileInput.files || fileInput.files.length === 0)) {
                     alert("חובה להעלות צילום חשבונית / קבלה עבור ההוצאה שהזנת.");
-                    fileInput.focus();
+                    if(fileInput) fileInput.focus();
                     return;
                 }
             }
@@ -265,7 +266,8 @@
         var actCards = document.querySelectorAll('.card-act');
         for (var i = 0; i < actCards.length; i++) {
             var fName = actCards[i].querySelector('.act-fam-name').value;
-            var fCase = actCards[i].querySelector('.act-fam-case').value;
+            var fCaseSelect = actCards[i].querySelector('.act-fam-case');
+            var fCase = fCaseSelect ? fCaseSelect.value : "";
             var hType = actCards[i].querySelector('.act-help-type').value;
             
             if(fName || fCase || hType) {
@@ -277,7 +279,8 @@
         function processCard(card) {
             var desc = card.querySelector('.fin-desc').value;
             var amount = card.querySelector('.fin-amount').value;
-            var docType = card.querySelector('.fin-doc-type').value;
+            var docTypeSelect = card.querySelector('.fin-doc-type');
+            var docType = docTypeSelect ? docTypeSelect.value : "";
             var fileInput = card.querySelector('.fin-file');
 
             if(!desc && !amount && !docType) {
@@ -316,7 +319,6 @@
 
             var googleWebAppUrl = "https://script.google.com/macros/s/AKfycbzF_EdtY1eVbuKpHy2wEqvT94d2MM8VISdiESy4p2ziUzT6amHbscAAfxP2Pv2PSnOIwQ/exec";
 
-            // שינוי הצינור לפקודה רציפה וחסינת CORS עבור גוגל
             fetch(googleWebAppUrl, {
                 method: "POST",
                 mode: "no-cors",
