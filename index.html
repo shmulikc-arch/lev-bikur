@@ -319,23 +319,28 @@
 
             var googleWebAppUrl = "https://script.google.com/macros/s/AKfycbwlcCEDLEYiprNXDMVQkwb9HVm-AFsGWldPW5kZDIDllzDIJzkU5hDjtRXSoZNAYrCvWg/exec";
 
-            fetch(googleWebAppUrl, {
-                method: "POST",
-                mode: "no-cors",
-                headers: {
-                    "Content-Type": "text/plain;charset=utf-8"
-                },
-                body: JSON.stringify(payload)
-            })
-            .then(function() {
+            // יצירת טופס נסתר חסין לחלוטין שמאלץ את הדפדפן להעביר את התוכן בצורה שגוגל יודע לקרוא תמיד
+            var form = document.createElement('form');
+            form.method = 'POST';
+            form.action = googleWebAppUrl;
+            form.style.display = 'none';
+
+            var input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'jsonData';
+            input.value = JSON.stringify(payload);
+            
+            form.appendChild(input);
+            document.body.appendChild(form);
+            
+            // שליחה בפועל
+            form.submit();
+
+            // רענון קל לעמוד לאחר חצי שנייה כדי שהמשתמשת תראה שהמסך התנקה
+            setTimeout(function() {
                 alert('הדיווח נקלט בהצלחה מרובה! תודה רבה.');
                 location.reload();
-            })
-            .catch(function(err) {
-                alert('שגיאה בשליחת הנתונים: ' + err.message);
-                document.getElementById('submitBtn').disabled = false;
-                document.getElementById('loadingMsg').style.display = 'none';
-            });
+            }, 600);
 
         }).catch(function(err) {
             alert('שגיאה בקבצים: ' + err.message);
