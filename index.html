@@ -293,17 +293,20 @@
                 finances: finances
             };
 
-            // *** שים לב! הדבק כאן בין הגרשיים את הקישור המעודכן ביותר של גוגל (ה-exec) ***
-            var googleWebAppUrl = "https://script.google.com/macros/s/AKfycbyhNchYG88grZ0DZknl6yjBbvtux5C4ScJphGMO9dVIvO8JgckCvizG3sxO0RgnTeG1-w/exec";
+            // *** הדבק כאן את קישור ה-exec המעודכן שלך מגוגל ***
+            var googleWebAppUrl = "https://script.google.com/macros/s/AKfycbzBz6iv5qUZVQwVKjBUXZ08A4nNMCnhaE1fzbjJYwE3O4JrwZwajwDXyFp-gDeKvVP-pw/exec";
 
-            // שליחת הנתונים בצורה עוקפת חסימות דפדפן (שימוש ב-fetch פשוט)
+            // המרת הנתונים למבנה שגוגל יודע לקרוא מאתר חיצוני ללא חסימות
+            var searchParams = new URLSearchParams();
+            searchParams.append("jsonData", JSON.stringify(payload));
+
             fetch(googleWebAppUrl, {
                 method: "POST",
-                mode: "no-cors", 
+                mode: "no-cors",
                 headers: {
-                    "Content-Type": "text/plain" // גוגל מעדיף טקסט פשוט מאתרים חיצוניים
+                    "Content-Type": "application/x-www-form-urlencoded"
                 },
-                body: JSON.stringify(payload)
+                body: searchParams.toString()
             })
             .then(function() {
                 alert('הדיווח נשלח בהצלחה לגוגל שיטס!');
