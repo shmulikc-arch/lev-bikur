@@ -3,288 +3,182 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>לב ביקור - דיווח פעילות והוצאות</title>
+    <title>לב ביקור - דיווח חודשי</title>
     <style>
-        :root {
-            --primary: #2c3e50;
-            --activity-color: #3498db;
-            --finance-color: #e67e22;
-            --success: #2ecc71;
-            --bg: #f5f7fa;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg);
-            color: #333;
-            margin: 0;
-            padding: 15px;
-        }
-        .container {
-            max-width: 650px;
-            margin: 0 auto;
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-        }
-        h1 {
-            text-align: center;
-            color: var(--primary);
-            margin-bottom: 5px;
-            font-size: 24px;
-        }
-        .subtitle {
-            text-align: center;
-            color: #7f8c8d;
-            margin-bottom: 25px;
-            font-size: 14px;
-        }
-        .section-box {
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            padding: 15px;
-            margin-bottom: 25px;
-            background: #fafbfc;
-        }
-        .section-title {
-            font-size: 18px;
-            font-weight: bold;
-            margin-top: 0;
-            margin-bottom: 15px;
-            padding-bottom: 5px;
-        }
-        .title-act { color: var(--activity-color); border-bottom: 2px solid var(--activity-color); }
-        .title-fin { color: var(--finance-color); border-bottom: 2px solid var(--finance-color); }
-        
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; color: #333; }
+        .container { max-width: 700px; background: white; margin: 0 auto; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        h2 { text-align: center; color: #2c3e50; margin-bottom: 25px; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+        .section { background: #fafbfc; border: 1px solid #e2e8f0; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        .section-title { font-weight: bold; margin-bottom: 15px; color: #2c3e50; display: flex; justify-content: space-between; align-items: center; }
         .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 6px; font-weight: 600; font-size: 14px; }
-        input[type="text"], input[type="number"], select {
-            width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 15px;
-        }
-        
-        .dynamic-card {
-            background: white; border: 1px solid #cbd5e1; padding: 15px; border-radius: 6px; margin-bottom: 15px; position: relative;
-        }
-        .card-act { border-right: 4px solid var(--activity-color); }
-        .card-fin { border-right: 4px solid var(--finance-color); }
-        
-        .file-upload-wrapper { background: #f8fafc; border: 1px dashed #cbd5e1; padding: 10px; border-radius: 6px; margin-top: 10px; display: none; }
-        
-        .btn { padding: 12px 20px; border: none; border-radius: 6px; cursor: pointer; font-size: 15px; font-weight: bold; width: 100%; transition: all 0.2s; }
-        .btn-add-act { background: white; color: var(--activity-color); border: 2px dashed var(--activity-color); margin-bottom: 10px; }
-        .btn-add-fin { background: white; color: var(--finance-color); border: 2px dashed var(--finance-color); margin-bottom: 10px; }
-        .btn-submit { background-color: var(--success); color: white; margin-top: 15px; font-size: 17px; }
+        label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 0.9em; }
+        input[type="text"], input[type="number"], select { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 1em; }
+        .row-item { background: white; border: 1px solid #e2e8f0; padding: 15px; border-radius: 6px; margin-bottom: 10px; position: relative; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+        .btn { padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 0.95em; transition: all 0.2s; }
+        .btn-add { background-color: #3498db; color: white; }
+        .btn-add:hover { background-color: #2980b9; }
+        .btn-danger { background-color: #e74c3c; color: white; padding: 5px 10px; font-size: 0.85em; border-radius: 4px; }
+        .btn-danger:hover { background-color: #c0392b; }
+        .btn-submit { background-color: #2ecc71; color: white; width: 100%; padding: 15px; font-size: 1.1em; margin-top: 15px; border-radius: 8px; box-shadow: 0 4px 6px rgba(46,204,113,0.2); }
         .btn-submit:hover { background-color: #27ae60; }
-        
-        .remove-btn { position: absolute; top: 10px; left: 10px; background: none; border: none; color: #e74c3c; cursor: pointer; font-weight: bold; }
-        .loading { display: none; text-align: center; font-weight: bold; color: var(--primary); margin-top: 15px; }
+        .btn-submit:disabled { background-color: #bdc3c7; cursor: not-allowed; box-shadow: none; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .loading { display: none; text-align: center; margin-top: 15px; font-weight: bold; color: #3498db; }
+        @media (max-width: 600px) { .grid-2 { grid-template-columns: 1fr; } body { padding: 10px; } .container { padding: 15px; } }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>פרויקט "לב ביקור"</h1>
-    <div class="subtitle">דיווח פעילות חסד והוצאות כספיות - קהילות חב"ד</div>
-    
-    <form id="reportForm">
+    <h2>לב ביקור - דיווח חודשי מאוחד</h2>
+    <form id="mainForm">
         
-        <div class="section-box" style="background: #fff;">
-            <div class="form-group">
-                <label for="month">עבור איזה חודש הדיווח?</label>
-                <select id="month" required>
-                    <option value="" disabled selected hidden>בחרי חודש...</option>
-                    <option value="ינואר">ינואר</option><option value="פברואר">פברואר</option><option value="מרץ">מרץ</option>
-                    <option value="אפריל">אפריל</option><option value="מאי">מאי</option><option value="יוני">יוני</option>
-                    <option value="יולי">יולי</option><option value="אוגוסט">אוגוסט</option><option value="ספטמבר">ספטמבר</option>
-                    <option value="אוקטובר">אוקטובר</option><option value="נובמבר">נובמבר</option><option value="דצמבר">דצמבר</option>
-                </select>
+        <div class="section">
+            <div class="section-title">פרטים כלליים</div>
+            <div class="grid-2">
+                <div class="form-group">
+                    <label>חודש דיווח</label>
+                    <select id="month" required>
+                        <option value="">בחר חודש...</option>
+                        <option value="ינואר">ינואר</option><option value="פברואר">פברואר</option>
+                        <option value="מרץ">מרץ</option><option value="אפריל">אפריל</option>
+                        <option value="מאי">מאי</option><option value="יוני">יוני</option>
+                        <option value="יולי">יולי</option><option value="אוגוסט">אוגוסט</option>
+                        <option value="ספטמבר">ספטמבר</option><option value="אוקטובר">אוקטובר</option>
+                        <option value="נובמבר">נובמבר</option><option value="דצמבר">דצמבר</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>סניף</label>
+                    <input type="text" id="branch" placeholder="שם הסניף" required>
+                </div>
             </div>
-            
             <div class="form-group">
-                <label for="branch">שם הסניף / הקהילה</label>
-                <select id="branch" required>
-                    <option value="" disabled selected hidden>בחרי קהילה...</option>
-                    <option value="קהילת חב&quot;ד אלעד">קהילת חב"ד אלעד</option>
-                    <option value="קהילת חב&quot;ד אשקלון">קהילת חב"ד אשקלון</option>
-                    <option value="קהילת חב&quot;ד ביתר">קהילת חב"ד ביתר</option>
-                    <option value="קהילת חב&quot;ד בית שמש">קהילת חב"ד בית שמש</option>
-                    <option value="קהילת חב&quot;ד בני ברק">קהילת חב"ד בני ברק</option>
-                    <option value="קהילת חב&quot;ד גבעת זאב">קהילת חב"ד גבעת זאב</option>
-                    <option value="קהילת חב&quot;ד לוד">קהילת חב"ד לוד</option>
-                    <option value="קהילת חב&quot;ד מגדל העמק">קהילת חב"ד מגדל העמק</option>
-                    <option value="קהילת חב&quot;ד צפת">קהילת חב"ד צפת</option>
-                    <option value="קהילת חב&quot;ד קריות – קרית שמואל">קהילת חב"ד קריות – קרית שמואל</option>
-                    <option value="קהילת חב&quot;ד רחביה - ירושלים">קהילת חב"ד רחביה - ירושלים</option>
-                    <option value="קהילת חב&quot;ד רמות - ירושלים">קהילת חב"ד רמות - ירושלים</option>
-                    <option value="קהילת חב&quot;ד רמת שלמה - ירושלים">קהילת חב"ד רמת שלמה - ירושלים</option>
-                </select>
-            </div>
-            
-            <div class="form-group">
-                <label for="reporterName">שם המפעילה המדווחת</label>
-                <input type="text" id="reporterName" required placeholder="הקלידי את שמך המלא">
+                <label>שם המפעילה המדווחת</label>
+                <input type="text" id="reporterName" placeholder="שם מלא" required>
             </div>
         </div>
 
-        <div class="section-box">
-            <div class="section-title title-act">חלק א': דיווח פעילות חסד (משפחות שקיבלו עזרה)</div>
-            <div id="activitiesContainer">
-                <div class="dynamic-card card-act" id="act_card_1">
-                    <div class="form-group">
-                        <label>שם המשפחה:</label>
-                        <input type="text" class="act-fam-name" required placeholder="לדוגמה: משפחת לוי">
-                    </div>
-                    <div class="form-group">
-                        <label>המקרה הרפואי / עילת הסיוע:</label>
-                        <select class="act-fam-case" required>
-                            <option value="" disabled selected hidden>בחר מקרה...</option>
-                            <option value="לידה / שמירת הריון">לידה / שמירת הריון</option>
-                            <option value="אשפוז ממושך">אשפוז ממושך</option>
-                            <option value="מחלה כרונית">מחלה כרונית</option>
-                            <option value="תאונה / שבר קשה">תאונה / שבר קשה</option>
-                            <option value="אחר">אחר</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>סוג הסיוע שניתן:</label>
-                        <input type="text" class="act-help-type" required placeholder="לדוגמה: אוכל לשבת, בייביסיטר, ניקיון">
-                    </div>
-                </div>
+        <div class="section">
+            <div class="section-title">
+                <span>יומן פעילות</span>
+                <button type="button" class="btn btn-add" onclick="addActivityRow()">+ הוסף פעילות</button>
             </div>
-            <button type="button" class="btn btn-add-act" id="addActBtn">➕ הוספת משפחה שקיבלה סיוע</button>
+            <div id="activitiesContainer"></div>
         </div>
 
-        <div class="section-box">
-            <div class="section-title title-fin">חלק ב': דיווח פיננסי (החזרי הוצאות / קבלות ותלושים)</div>
-            <div id="financesContainer">
-                <div class="dynamic-card card-fin" id="fin_card_1">
-                    <div class="form-group">
-                        <label>תיאור ההוצאה (עבור מה שולם):</label>
-                        <input type="text" class="fin-desc" required placeholder="לדוגמה: קניית אוכל למשפחת לוי / כרטיסי צרכנייה מרוכזים">
-                    </div>
-                    <div class="form-group">
-                        <label>סכום ההוצאה (בש"ח):</label>
-                        <input type="number" class="fin-amount" required placeholder="0" min="0">
-                    </div>
-                    <div class="form-group">
-                        <label>סוג האסמכתא לתשלום:</label>
-                        <select class="fin-doc-type" required onchange="toggleFile(1, this.value)">
-                            <option value="" disabled selected hidden>בחר סוג אסמכתא...</option>
-                            <option value="תלוש שכר">תלוש שכר (אין צורך להעלות קובץ)</option>
-                            <option value="חשבונית / קבלה">חשבונית / קבלה (דורש העלאת קובץ)</option>
-                        </select>
-                    </div>
-                    <div class="file-upload-wrapper" id="upload_wrapper_1">
-                        <label>צילום/העלאת החשבונית:</label>
-                        <input type="file" class="fin-file" accept="image/*,application/pdf">
-                    </div>
-                </div>
+        <div class="section">
+            <div class="section-title">
+                <span>פירוט הוצאות וכספים</span>
+                <button type="button" class="btn btn-add" onclick="addFinanceRow()">+ הוסף הוצאה</button>
             </div>
-            <button type="button" class="btn btn-add-fin" id="addFinBtn">➕ הוספת שורת הוצאה כספית</button>
+            <div id="financesContainer"></div>
         </div>
-        
-        <button type="submit" class="btn btn-submit" id="submitBtn">שלח דיווח חודשי מאוחד</button>
-        <div class="loading" id="loadingMsg">שולח נתונים ומעלה קבצים... נא לא לסגור את המסך.</div>
+
+        <button type="submit" id="submitBtn" class="btn btn-submit">שלח דיווח מאוחד</button>
+        <div id="loadingMsg" class="loading">מערכת מעבדת נתונים ומעלה קבצים, אנא המתן...</div>
     </form>
 </div>
 
 <script>
-    var actCount = 1;
-    var finCount = 1;
-
-    // הפעלה ישירה של הוספת כרטיס פעילות (ללא תלות בטעינת חלון)
-    document.getElementById('addActBtn').onclick = function() {
-        actCount++;
+    // הוספת שורות דינמיות ביומן פעילות
+    function addActivityRow() {
         var container = document.getElementById('activitiesContainer');
-        var card = document.createElement('div');
-        card.className = 'dynamic-card card-act';
-        card.id = 'act_card_' + actCount;
-        card.innerHTML = '<button type="button" class="remove-btn" onclick="document.getElementById(\'act_card_' + actCount + '\').remove()">❌ הסר</button>' +
-            '<div class="form-group" style="margin-top:15px;"><label>שם המשפחה:</label><input type="text" class="act-fam-name" required placeholder="לדוגמה: משפחת לוי"></div>' +
-            '<div class="form-group"><label>המקרה הרפואי / עילת הסיוע:</label><select class="act-fam-case" required><option value="" disabled selected hidden>בחר מקרה...</option><option value="לידה / שמירת הריון">לידה / שמירת הריון</option><option value="אשפוז ממושך">אשפוז ממושך</option><option value="מחלה כרונית">מחלה כרונית</option><option value="תאונה / שבר קשה">תאונה / שבר קשה</option><option value="אחר">אחר</option></select></div>' +
-            '<div class="form-group"><label>סוג הסיוע שניתן:</label><input type="text" class="act-help-type" required placeholder="לדוגמה: אוכל לשבת, בייביסיטר, ניקיון"></div>';
-        container.appendChild(card);
-    };
-
-    // הפעלה ישירה של הוספת כרטיס כספים (ללא תלות בטעינת חלון)
-    document.getElementById('addFinBtn').onclick = function() {
-        finCount++;
-        var container = document.getElementById('financesContainer');
-        var card = document.createElement('div');
-        card.className = 'dynamic-card card-fin';
-        card.id = 'fin_card_' + finCount;
-        card.innerHTML = '<button type="button" class="remove-btn" onclick="document.getElementById(\'fin_card_' + finCount + '\').remove()">❌ הסר</button>' +
-            '<div class="form-group" style="margin-top:15px;"><label>תיאור ההוצאה (עבור מה שולם):</label><input type="text" class="fin-desc" required placeholder="לדוגמה: קניית אוכל למשפחת לוי / כרטיסי צרכנייה מרוכזים"></div>' +
-            '<div class="form-group"><label>סכום ההוצאה (בש"ח):</label><input type="number" class="fin-amount" required placeholder="0" min="0"></div>' +
-            '<div class="form-group"><label>סוג האסמכתא לתשלום:</label><select class="fin-doc-type" required onchange="toggleFile(' + finCount + ', this.value)"><option value="" disabled selected hidden>בחר סוג אסמכתא...</option><option value="תלוש שכר">תלוש שכר (אין צורך להעלות קובץ)</option><option value="חשבונית / קבלה">חשבונית / קבלה (דורש העלאת קובץ)</option></select></div>' +
-            '<div class="file-upload-wrapper" id="upload_wrapper_' + finCount + '"><label>צילום/העלאת החשבונית:</label><input type="file" class="fin-file" accept="image/*,application/pdf"></div>';
-        container.appendChild(card);
-    };
-
-    function toggleFile(id, value) {
-        var wrapper = document.getElementById('upload_wrapper_' + id);
-        if(!wrapper) return;
-        var fileInput = wrapper.querySelector('.fin-file');
-        if (value === 'חשבונית / קבלה') {
-            wrapper.style.display = 'block'; 
-            if(fileInput) fileInput.required = true;
-        } else {
-            wrapper.style.display = 'none'; 
-            if(fileInput) { fileInput.required = false; fileInput.value = ''; }
-        }
+        var div = document.createElement('div');
+        div.className = 'row-item';
+        div.innerHTML = `
+            <div class="form-group"><label>שם משפחה</label><input type="text" class="act-famName" required></div>
+            <div class="grid-2">
+                <div class="form-group"><label>מקרה רפואי</label><input type="text" class="act-famCase" required></div>
+                <div class="form-group"><label>סוג סיוע / פעילות</label><input type="text" class="act-helpType" required></div>
+            </div>
+            <button type="button" class="btn btn-danger" onclick="this.parentElement.remove()">הסר שורה</button>
+        `;
+        container.appendChild(div);
     }
 
-    document.getElementById('reportForm').onsubmit = function(event) {
-        event.preventDefault();
+    // הוספת שורות דינמיות בפירוט כספים
+    function addFinanceRow() {
+        var container = document.getElementById('financesContainer');
+        var div = document.createElement('div');
+        div.className = 'row-item';
+        div.innerHTML = `
+            <div class="grid-2">
+                <div class="form-group"><label>שם משפחה</label><input type="text" class="fin-famName" required></div>
+                <div class="form-group"><label>תיאור הוצאה</label><input type="text" class="fin-expenseDesc" required></div>
+            </div>
+            <div class="grid-2">
+                <div class="form-group"><label>סכום (ש"ח)</label><input type="number" class="fin-amount" required></div>
+                <div class="form-group"><label>סוג אסמכתא</label>
+                    <select class="fin-docType" required>
+                        <option value="חשבונית מס">חשבונית מס</option>
+                        <option value="קבלה">קבלה</option>
+                        <option value="אחר">אחר</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group"><label>העלאת צילום קבלה/אסמכתא</label><input type="file" class="fin-file" accept="image/*,application/pdf"></div>
+            <button type="button" class="btn btn-danger" onclick="this.parentElement.remove()">הסר שורה</button>
+        `;
+        container.appendChild(div);
+    }
+
+    // פונקציית עזר להמרת קובץ ל-Base64 בשביל גוגל דרייב
+    function fileToBase64(file) {
+        return new Promise(function(resolve, reject) {
+            if (!file) { resolve({fileName: "", fileData: ""}); return; }
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function() { resolve({fileName: file.name, fileData: reader.result}); };
+            reader.onerror = function(error) { reject(error); };
+        });
+    }
+
+    // פתיחת שורה ראשונה אוטומטית כדי שהטופס לא יהיה ריק בהתחלה
+    window.onload = function() {
+        addActivityRow();
+        addFinanceRow();
+    };
+
+    // מנגנון משלוח הטופס הראשי
+    document.getElementById('mainForm').onsubmit = function(e) {
+        e.preventDefault();
+        
         document.getElementById('submitBtn').disabled = true;
         document.getElementById('loadingMsg').style.display = 'block';
 
+        // 1. איסוף פרטי מטה
         var meta = {
             month: document.getElementById('month').value,
             branch: document.getElementById('branch').value,
             reporterName: document.getElementById('reporterName').value
         };
 
+        // 2. איסוף נתוני פעילויות
         var activities = [];
-        var actCards = document.querySelectorAll('.card-act');
-        for (var i = 0; i < actCards.length; i++) {
+        var actRows = document.querySelectorAll('#activitiesContainer .row-item');
+        actRows.forEach(function(row) {
             activities.push({
-                famName: actCards[i].querySelector('.act-fam-name').value,
-                famCase: actCards[i].querySelector('.act-fam-case').value,
-                helpType: actCards[i].querySelector('.act-help-type').value
+                famName: row.querySelector('.act-famName').value,
+                famCase: row.querySelector('.act-famCase').value,
+                helpType: row.querySelector('.act-helpType').value
             });
-        }
+        });
 
-        var finCards = document.querySelectorAll('.card-fin');
-        var financesPromises = [];
-
-        function processCard(card) {
-            var desc = card.querySelector('.fin-desc').value;
-            var amount = card.querySelector('.fin-amount').value;
-            var docType = card.querySelector('.fin-doc-type').value;
-            var fileInput = card.querySelector('.fin-file');
-
-            var finItem = { desc: desc, amount: amount, docType: docType, fileName: '', fileData: '' };
-
-            if (docType === 'חשבונית / קבלה' && fileInput && fileInput.files && fileInput.files.length > 0) {
-                var file = fileInput.files[0];
-                var reader = new FileReader();
-                return new Promise(function(resolve) {
-                    reader.onload = function(e) {
-                        finItem.fileData = e.target.result.split(',')[1];
-                        finItem.fileName = file.name;
-                        resolve(finItem);
-                    };
-                    reader.readAsDataURL(file);
-                });
-            } else {
-                return Promise.resolve(finItem);
-            }
-        }
-
-        for (var j = 0; j < finCards.length; j++) {
-            financesPromises.push(processCard(finCards[j]));
-        }
+        // 3. איסוף נתוני כספים וקבצים
+        var finRows = document.querySelectorAll('#financesContainer .row-item');
+        var financesPromises = Array.from(finRows).map(function(row) {
+            var fileInput = row.querySelector('.fin-file').files[0];
+            return fileToBase64(fileInput).then(function(fileObj) {
+                return {
+                    famName: row.querySelector('.fin-famName').value,
+                    expenseDesc: row.querySelector('.fin-expenseDesc').value,
+                    amount: row.querySelector('.fin-amount').value,
+                    docType: row.querySelector('.fin-docType').value,
+                    fileInput: fileObj
+                };
+            });
+        });
 
         Promise.all(financesPromises).then(function(finances) {
             var payload = {
@@ -293,10 +187,11 @@
                 finances: finances
             };
 
-            // *** הדבק כאן את קישור ה-exec המעודכן שלך מגוגל ***
+            // ====================================================================
+            // ⚠️ ⚠️ ⚠️ חובה להדביק כאן בין הגרשיים את קישור ה-EXEC של הפריסה החדשה שלך ⚠️ ⚠️ ⚠️
+            // ====================================================================
             var googleWebAppUrl = "https://script.google.com/macros/s/AKfycbzBz6iv5qUZVQwVKjBUXZ08A4nNMCnhaE1fzbjJYwE3O4JrwZwajwDXyFp-gDeKvVP-pw/exec";
 
-            // המרת הנתונים למבנה שגוגל יודע לקרוא מאתר חיצוני ללא חסימות
             var searchParams = new URLSearchParams();
             searchParams.append("jsonData", JSON.stringify(payload));
 
@@ -309,17 +204,17 @@
                 body: searchParams.toString()
             })
             .then(function() {
-                alert('הדיווח נשלח בהצלחה לגוגל שיטס!');
+                alert('הדיווח נקלט בהצלחה מרובה בגוגל שיטס!');
                 location.reload();
             })
             .catch(function(err) {
-                alert('שגיאה בשליחה: ' + err.message);
+                alert('שגיאה בשליחת המידע: ' + err.message);
                 document.getElementById('submitBtn').disabled = false;
                 document.getElementById('loadingMsg').style.display = 'none';
             });
 
         }).catch(function(err) {
-            alert('שגיאה בקבצים: ' + err.message);
+            alert('שגיאה בעיבוד הקבצים: ' + err.message);
             document.getElementById('submitBtn').disabled = false;
             document.getElementById('loadingMsg').style.display = 'none';
         });
