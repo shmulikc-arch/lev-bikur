@@ -81,7 +81,6 @@
 </div>
 
 <script>
-    // הוספת שורות דינמיות ביומן פעילות
     function addActivityRow() {
         var container = document.getElementById('activitiesContainer');
         var div = document.createElement('div');
@@ -97,7 +96,6 @@
         container.appendChild(div);
     }
 
-    // הוספת שורות דינמיות בפירוט כספים
     function addFinanceRow() {
         var container = document.getElementById('financesContainer');
         var div = document.createElement('div');
@@ -123,7 +121,6 @@
         container.appendChild(div);
     }
 
-    // פונקציית עזר להמרת קובץ ל-Base64 בשביל גוגל דרייב
     function fileToBase64(file) {
         return new Promise(function(resolve, reject) {
             if (!file) { resolve({fileName: "", fileData: ""}); return; }
@@ -134,27 +131,23 @@
         });
     }
 
-    // פתיחת שורה ראשונה אוטומטית כדי שהטופס לא יהיה ריק בהתחלה
     window.onload = function() {
         addActivityRow();
         addFinanceRow();
     };
 
-    // מנגנון משלוח הטופס הראשי
     document.getElementById('mainForm').onsubmit = function(e) {
         e.preventDefault();
         
         document.getElementById('submitBtn').disabled = true;
         document.getElementById('loadingMsg').style.display = 'block';
 
-        // 1. איסוף פרטי מטה
         var meta = {
             month: document.getElementById('month').value,
             branch: document.getElementById('branch').value,
             reporterName: document.getElementById('reporterName').value
         };
 
-        // 2. איסוף נתוני פעילויות
         var activities = [];
         var actRows = document.querySelectorAll('#activitiesContainer .row-item');
         actRows.forEach(function(row) {
@@ -165,7 +158,6 @@
             });
         });
 
-        // 3. איסוף נתוני כספים וקבצים
         var finRows = document.querySelectorAll('#financesContainer .row-item');
         var financesPromises = Array.from(finRows).map(function(row) {
             var fileInput = row.querySelector('.fin-file').files[0];
@@ -188,33 +180,30 @@
             };
 
             // ====================================================================
-            // ⚠️ ⚠️ ⚠️ חובה להדביק כאן בין הגרשיים את קישור ה-EXEC של הפריסה החדשה שלך ⚠️ ⚠️ ⚠️
+            // ⚠️ הדבק כאן בין הגרשיים את קישור ה-EXEC של הפריסה המעודכנת שלך מגוגל ⚠️
             // ====================================================================
             var googleWebAppUrl = "https://script.google.com/macros/s/AKfycbzBz6iv5qUZVQwVKjBUXZ08A4nNMCnhaE1fzbjJYwE3O4JrwZwajwDXyFp-gDeKvVP-pw/exec";
-
-            var searchParams = new URLSearchParams();
-            searchParams.append("jsonData", JSON.stringify(payload));
 
             fetch(googleWebAppUrl, {
                 method: "POST",
                 mode: "no-cors",
                 headers: {
-                    "Content-Type": "application/x-www-form-urlencoded"
+                    "Content-Type": "text/plain"
                 },
-                body: searchParams.toString()
+                body: JSON.stringify(payload)
             })
             .then(function() {
-                alert('הדיווח נקלט בהצלחה מרובה בגוגל שיטס!');
+                alert('הדיווח נשלח בהצלחה לגוגל שיטס!');
                 location.reload();
             })
             .catch(function(err) {
-                alert('שגיאה בשליחת המידע: ' + err.message);
+                alert('שגיאה בשליחה: ' + err.message);
                 document.getElementById('submitBtn').disabled = false;
                 document.getElementById('loadingMsg').style.display = 'none';
             });
 
         }).catch(function(err) {
-            alert('שגיאה בעיבוד הקבצים: ' + err.message);
+            alert('שגיאה בקבצים: ' + err.message);
             document.getElementById('submitBtn').disabled = false;
             document.getElementById('loadingMsg').style.display = 'none';
         });
