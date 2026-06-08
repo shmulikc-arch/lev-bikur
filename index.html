@@ -82,13 +82,13 @@
 </head>
 <body>
 <div class="container">
-    <h1>"לב ביקור"</h1>
-    <div class="subtitle">דיווח פעילות והוצאות כספיות - קהילות אנ"ש</div>
+    <h1>פרויקט "לב ביקור"</h1>
+    <div class="subtitle">דיווח פעילות חסד והוצאות כספיות - קהילות חב"ד</div>
     
     <form id="reportForm">
         <div class="section-box" style="background: #fff;">
             <div class="form-group">
-                <label for="month">עבור איזה חודש הדיווח (החודש הקודם)?</label>
+                <label for="month">עבור איזה חודש הדיווח?</label>
                 <select id="month" required>
                     <option value="" disabled selected hidden>בחרי חודש...</option>
                     <option value="ינואר">ינואר</option><option value="פברואר">פברואר</option><option value="מרץ">מרץ</option>
@@ -119,13 +119,13 @@
             </div>
             
             <div class="form-group">
-                <label for="reporterName">שם המדווחת</label>
+                <label for="reporterName">שם המפעילה המדווחת</label>
                 <input type="text" id="reporterName" required placeholder="הקלידי את שמך המלא">
             </div>
         </div>
 
         <div class="section-box">
-            <div class="section-title title-act">חלק א': דיווח פעילות (משפחות שקיבלו עזרה)</div>
+            <div class="section-title title-act">חלק א': דיווח פעילות חסד (משפחות שקיבלו עזרה)</div>
             <div id="activitiesContainer">
                 <div class="dynamic-card card-act" id="act_card_1">
                     <div class="form-group">
@@ -158,7 +158,7 @@
                 <div class="dynamic-card card-fin" id="fin_card_1">
                     <div class="form-group">
                         <label>תיאור ההוצאה (עבור מה שולם):</label>
-                        <input type="text" class="fin-desc" placeholder="לדוגמה: קניית אוכל למשפחת לוי / בייביסיטר">
+                        <input type="text" class="fin-desc" placeholder="לדוגמה: קניית אוכל למשפחת לוי / כרטיסי צרכנייה מרוכזים">
                     </div>
                     <div class="form-group">
                         <label>סכום ההוצאה (בש"ח):</label>
@@ -167,7 +167,7 @@
                     <div class="form-group">
                         <label>סוג האסמכתא לתשלום:</label>
                         <select class="fin-doc-type" onchange="toggleFile(1, this.value)">
-                            <option value="" disabled selected hidden>בחרי סוג אסמכתא...</option>
+                            <option value="" disabled selected hidden>בחר סוג אסמכתא...</option>
                             <option value="תלוש שכר">תלוש שכר (אין צורך להעלות קובץ)</option>
                             <option value="חשבונית / קבלה">חשבונית / קבלה (דורש העלאת קובץ)</option>
                         </select>
@@ -181,7 +181,7 @@
             <button type="button" class="btn btn-add-fin" id="addFinBtn">➕ הוספת שורת הוצאה כספית</button>
         </div>
         
-        <button type="submit" class="btn btn-submit" id="submitBtn">שלחי דיווח</button>
+        <button type="submit" class="btn btn-submit" id="submitBtn">שלח דיווח חודשי מאוחד</button>
         <div class="loading" id="loadingMsg">שולח נתונים ומעלה קבצים... נא לא לסגור את המסך.</div>
     </form>
 </div>
