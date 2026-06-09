@@ -182,7 +182,7 @@
         </div>
         
         <button type="submit" class="btn btn-submit" id="submitBtn">שלח דיווח חודשי מאוחד</button>
-        <div class="loading" id="loadingMsg">שולח נתונים ומעלה קבצים... נא לא לסגור את המסך.</div>
+        <div class="loading" id="loadingMsg">מכין את הנתונים ומעלה קבצים... נא לא לסגור את המסך.</div>
     </form>
 </div>
 
@@ -239,6 +239,7 @@
             reporterName: document.getElementById('reporterName').value
         };
 
+        // בדיקת תקינות בלבד
         for (var k = 0; k < finCards.length; k++) {
             var descVal = finCards[k].querySelector('.fin-desc').value.trim();
             var amountVal = finCards[k].querySelector('.fin-amount').value.trim();
@@ -306,8 +307,8 @@
             var filteredFinances = results.filter(function(item) { return item !== null; });
             var payload = { meta: meta, activities: activities, finances: filteredFinances };
 
-            // הקישור הלייב והיציב שלך בגוגל
-            var googleWebAppUrl = "https://script.google.com/macros/s/AKfycbwuBaTEPb3so7ufZPg46N9vzyWbf3PQE6dktT2dBAIvb0JUkPA8EM1fI99CdAy0-SLL6w/exec";
+            // ⚠️ כאן תדביק את קישור ה-Deployment החדש והנקי שייצרת בשלב 1 ⚠️
+            var googleWebAppUrl = "https://script.google.com/macros/s/AKfycbxFaPlXx0IFZjUQcduHyW4LZ7njlVP5XfsIbiwWNbnd8_0GP16JynUTBilJsuuxPmM0iw/exec";
 
             // יצירת טופס פיזי נסתר כדי לעקוף את חוקי ה-CORS לחלוטין
             var hiddenForm = document.createElement('form');
@@ -323,7 +324,7 @@
             hiddenForm.appendChild(hiddenInput);
             document.body.appendChild(hiddenForm);
             
-            // שליחת הטופס - הדפדפן מנווט לגוגל וגוגל יציג הודעת הצלחה קשיחה
+            // שליחה סופית
             hiddenForm.submit();
 
         }).catch(function(err) {
