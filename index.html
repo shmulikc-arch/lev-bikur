@@ -130,12 +130,12 @@
                 <div class="dynamic-card card-act" id="act_card_1">
                     <div class="form-group">
                         <label>שם המשפחה:</label>
-                        <input type="text" class="act-fam-name" placeholder="לדוגמה: משפחת לוי">
+                        <input type="text" class="act-fam-name" placeholder="לדוגמה: משפחת לוי (השאר ריק אם אין דיווח)">
                     </div>
                     <div class="form-group">
                         <label>המקרה הרפואי / עילת הסיוע:</label>
                         <select class="act-fam-case">
-                            <option value="">בחר מקרה (אופציונלי)...</option>
+                            <option value="">-- בחר מקרה (אופציונלי) --</option>
                             <option value="לידה / שמירת הריון">לידה / שמירת הריון</option>
                             <option value="אשפוז ממושך">אשפוז ממושך</option>
                             <option value="מחלה כרונית">מחלה כרונית</option>
@@ -158,7 +158,7 @@
                 <div class="dynamic-card card-fin" id="fin_card_1">
                     <div class="form-group">
                         <label>תיאור ההוצאה (עבור מה שולם):</label>
-                        <input type="text" class="fin-desc" placeholder="לדוגמה: קניית אוכל למשפחת לוי / כרטיסי צרכנייה מרוכזים">
+                        <input type="text" class="fin-desc" placeholder="לדוגמה: קניית אוכל למשפחת לוי (השאר ריק אם אין)">
                     </div>
                     <div class="form-group">
                         <label>סכום ההוצאה (בש"ח):</label>
@@ -167,7 +167,7 @@
                     <div class="form-group">
                         <label>סוג האסמכתא לתשלום:</label>
                         <select class="fin-doc-type" onchange="toggleFile(1, this.value)">
-                            <option value="">בחר סוג אסמכתא (אופציונלי)...</option>
+                            <option value="">-- בחר סוג אסמכתא (אופציונלי) --</option>
                             <option value="תלוש שכר">תלוש שכר (אין צורך להעלות קובץ)</option>
                             <option value="חשבונית / קבלה">חשבונית / קבלה (דורש העלאת קובץ)</option>
                         </select>
@@ -197,9 +197,9 @@
         card.className = 'dynamic-card card-act';
         card.id = 'act_card_' + actCount;
         card.innerHTML = '<button type="button" class="remove-btn" onclick="document.getElementById(\'act_card_' + actCount + '\').remove()">❌ הסר</button>' +
-            '<div class="form-group" style="margin-top:15px;"><label>שם המשפחה:</label><input type="text" class="act-fam-name" placeholder="לדוגמה: משפחת לוי"></div>' +
-            '<div class="form-group"><label>המקרה הרפואי / עילת הסיוע:</label><select class="act-fam-case"><option value="">בחר מקרה (אופציונלי)...</option><option value="לידה / שמירת הריון">לידה / שמירת הריון</option><option value="אשפוז ממושך">אשפוז ממושך</option><option value="מחלה כרונית">מחלה כרונית</option><option value="תאונה / שבר קשה">תאונה / שבר קשה</option><option value="אחר">אחר</option></select></div>' +
-            '<div class="form-group"><label>סוג הסיוע שניתן:</label><input type="text" class="act-help-type" placeholder="לדוגמה: אוכל לשבת, בייביסיטר, ניקיון"></div>';
+            '<div class="form-group" style="margin-top:15px;"><label>שם המשפחה:</label><input type="text" class="act-fam-name" placeholder="שם המשפחה"></div>' +
+            '<div class="form-group"><label>המקרה הרפואי / עילת הסיוע:</label><select class="act-fam-case"><option value="">-- בחר מקרה (אופציונלי) --</option><option value="לידה / שמירת הריון">לידה / שמירת הריון</option><option value="אשפוז ממושך">אשפוז ממושך</option><option value="מחלה כרונית">מחלה כרונית</option><option value="תאונה / שבר קשה">תאונה / שבר קשה</option><option value="אחר">אחר</option></select></div>' +
+            '<div class="form-group"><label>סוג הסיוע שניתן:</label><input type="text" class="act-help-type" placeholder="סוג הסיוע"></div>';
         container.appendChild(card);
     };
 
@@ -210,9 +210,9 @@
         card.className = 'dynamic-card card-fin';
         card.id = 'fin_card_' + finCount;
         card.innerHTML = '<button type="button" class="remove-btn" onclick="document.getElementById(\'fin_card_' + finCount + '\').remove()">❌ הסר</button>' +
-            '<div class="form-group" style="margin-top:15px;"><label>תיאור ההוצאה (עבור מה שולם):</label><input type="text" class="fin-desc" placeholder="לדוגמה: קניית אוכל למשפחת לוי / כרטיסי צרכנייה מרוכזים"></div>' +
+            '<div class="form-group" style="margin-top:15px;"><label>תיאור ההוצאה (עבור מה שולם):</label><input type="text" class="fin-desc" placeholder="תיאור ההוצאה"></div>' +
             '<div class="form-group"><label>סכום ההוצאה (בש"ח):</label><input type="number" class="fin-amount" placeholder="0" min="0"></div>' +
-            '<div class="form-group"><label>סוג האסמכתא לתשלום:</label><select class="fin-doc-type" onchange="toggleFile(' + finCount + ', this.value)"><option value="">בחר סוג אסמכתא (אופציונלי)...</option><option value="תלוש שכר">תלוש שכר (אין צורך להעלות קובץ)</option><option value="חשבונית / קבלה">חשבונית / קבלה (דורש העלאת קובץ)</option></select></div>' +
+            '<div class="form-group"><label>סוג האסמכתא לתשלום:</label><select class="fin-doc-type" onchange="toggleFile(' + finCount + ', this.value)"><option value="">-- בחר סוג אסמכתא (אופציונלי) --</option><option value="תלוש שכר">תלוש שכר (אין צורך להעלות קובץ)</option><option value="חשבונית / קבלה">חשבונית / קבלה (דורש העלאת קובץ)</option></select></div>' +
             '<div class="file-upload-wrapper" id="upload_wrapper_' + finCount + '"><label>צילום/העלאת החשבונית:</label><input type="file" class="fin-file" accept="image/*,application/pdf"></div>';
         container.appendChild(card);
     };
@@ -239,16 +239,15 @@
             reporterName: document.getElementById('reporterName').value
         };
 
-        // בדיקת תקינות בלבד - ללא חסימות מיותרות
         for (var k = 0; k < finCards.length; k++) {
-            var descVal = finCards[k].querySelector('.fin-desc').value;
-            var amountVal = finCards[k].querySelector('.fin-amount').value;
+            var descVal = finCards[k].querySelector('.fin-desc').value.trim();
+            var amountVal = finCards[k].querySelector('.fin-amount').value.trim();
             var docTypeVal = finCards[k].querySelector('.fin-doc-type').value;
             var fileInput = finCards[k].querySelector('.fin-file');
             
             if(descVal || amountVal || docTypeVal) {
                 if(!docTypeVal) {
-                    alert("בחרת למלא הוצאה כספית, נא לבחר את סוג האסמכתא שלה.");
+                    alert("נא לבחור סוג אסמכתא עבור ההוצאה המדווחת.");
                     return;
                 }
                 if (docTypeVal === 'חשבונית / קבלה' && (!fileInput || !fileInput.files || fileInput.files.length === 0)) {
@@ -264,75 +263,68 @@
         var activities = [];
         var actCards = document.querySelectorAll('.card-act');
         for (var i = 0; i < actCards.length; i++) {
-            var fName = actCards[i].querySelector('.act-fam-name').value;
+            var fName = actCards[i].querySelector('.act-fam-name').value.trim();
             var fCase = actCards[i].querySelector('.act-fam-case').value;
-            var hType = actCards[i].querySelector('.act-help-type').value;
-            if(fName || fCase || hType) {
+            var hType = actCards[i].querySelector('.act-help-type').value.trim();
+            if(fName) {
                 activities.push({ famName: fName, famCase: fCase, helpType: hType });
             }
         }
 
         var financesPromises = [];
-        function processCard(card) {
-            var desc = card.querySelector('.fin-desc').value;
-            var amount = card.querySelector('.fin-amount').value;
-            var docType = card.querySelector('.fin-doc-type').value;
-            var fileInput = card.querySelector('.fin-file');
-
-            if(!desc && !amount && !docType) {
-                return Promise.resolve(null);
-            }
-
-            var finItem = { desc: desc, amount: amount, docType: docType, fileName: '', fileData: '' };
-            if (docType === 'חשבונית / קבלה' && fileInput && fileInput.files && fileInput.files.length > 0) {
-                var file = fileInput.files[0];
-                var reader = new FileReader();
-                return new Promise(function(resolve) {
-                    reader.onload = function(e) {
-                        finItem.fileData = e.target.result.split(',')[1];
-                        finItem.fileName = file.name;
-                        resolve(finItem);
-                    };
-                    reader.readAsDataURL(file);
-                });
-            } else {
-                return Promise.resolve(finItem);
-            }
-        }
-
         for (var j = 0; j < finCards.length; j++) {
-            financesPromises.push(processCard(finCards[j]));
+            var descVal = finCards[j].querySelector('.fin-desc').value.trim();
+            var amountVal = finCards[j].querySelector('.fin-amount').value.trim();
+            var docTypeVal = finCards[j].querySelector('.fin-doc-type').value;
+            var fileInput = finCards[j].querySelector('.fin-file');
+
+            (function(desc, amount, docType, fInput) {
+                if(!desc && !amount && !docType) {
+                    financesPromises.push(Promise.resolve(null));
+                    return;
+                }
+                var finItem = { desc: desc, amount: amount, docType: docType, fileName: '', fileData: '' };
+                if (docType === 'חשבונית / קבלה' && fInput && fInput.files && fInput.files.length > 0) {
+                    var file = fInput.files[0];
+                    var reader = new FileReader();
+                    var p = new Promise(function(resolve) {
+                        reader.onload = function(e) {
+                            finItem.fileData = e.target.result.split(',')[1];
+                            finItem.fileName = file.name;
+                            resolve(finItem);
+                        };
+                        reader.readAsDataURL(file);
+                    });
+                    financesPromises.push(p);
+                } else {
+                    financesPromises.push(Promise.resolve(finItem));
+                }
+            })(descVal, amountVal, docTypeVal, fileInput);
         }
 
         Promise.all(financesPromises).then(function(results) {
             var filteredFinances = results.filter(function(item) { return item !== null; });
+            var payload = { meta: meta, activities: activities, finances: filteredFinances };
 
-            var payload = {
-                meta: meta,
-                activities: activities,
-                finances: filteredFinances
-            };
+            // הקישור הלייב והיציב שלך בגוגל
+            var googleWebAppUrl = "https://script.google.com/macros/s/AKfycbwuBaTEPb3so7ufZPg46N9vzyWbf3PQE6dktT2dBAIvb0JUkPA8EM1fI99CdAy0-SLL6w/exec";
 
-            // הקישור המדויק והפעיל שלך בגוגל (ללא ה-setHeaders המקולקל)
-            var googleWebAppUrl = "https://script.google.com/macros/s/AKfycbwuBaTEPb3so7ufZPg46N9vzyWbf3PQE6dktT2dBAIvb0JUkPA8EM1fI99CdAy0-SLL6w/exec?v=2";
+            // יצירת טופס פיזי נסתר כדי לעקוף את חוקי ה-CORS לחלוטין
+            var hiddenForm = document.createElement('form');
+            hiddenForm.method = 'POST';
+            hiddenForm.action = googleWebAppUrl;
+            hiddenForm.style.display = 'none';
 
-            fetch(googleWebAppUrl, {
-                method: "POST",
-                mode: "no-cors",
-                headers: {
-                    "Content-Type": "text/plain;charset=utf-8"
-                },
-                body: JSON.stringify(payload)
-            })
-            .then(function() {
-                alert('הדיווח נקלט בהצלחה מרובה! תודה רבה.');
-                location.reload();
-            })
-            .catch(function(err) {
-                alert('שגיאה בשליחת הנתונים: ' + err.message);
-                document.getElementById('submitBtn').disabled = false;
-                document.getElementById('loadingMsg').style.display = 'none';
-            });
+            var hiddenInput = document.createElement('input');
+            hiddenInput.type = 'hidden';
+            hiddenInput.name = 'jsonData';
+            hiddenInput.value = JSON.stringify(payload);
+
+            hiddenForm.appendChild(hiddenInput);
+            document.body.appendChild(hiddenForm);
+            
+            // שליחת הטופס - הדפדפן מנווט לגוגל וגוגל יציג הודעת הצלחה קשיחה
+            hiddenForm.submit();
 
         }).catch(function(err) {
             alert('שגיאה: ' + err.message);
